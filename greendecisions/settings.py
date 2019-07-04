@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     #Local
     'posts',
     # 3rd party apps
+    'webpack_loader',
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger', # new
@@ -65,11 +67,18 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # new
 SITE_ID = 1 # new
 
 SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
     'LOGIN_URL': 'rest_framework:login',
     'LOGOUT_URL': 'rest_framework:logout',
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # new
+    'django.middleware.common.CommonMiddleware', # new
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,12 +88,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8080'
+)
+
 ROOT_URLCONF = 'greendecisions.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,3 +161,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'dist'),
+)
+
+# webpack loader
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': '',
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend/webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    }
+}
