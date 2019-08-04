@@ -1,33 +1,32 @@
 <template>
   <div id="app">
-     <the-header></the-header>
-     <the-body></the-body>
-
+    <h1>hello</h1>
+    <navbar v-if="isAuthenticated"></navbar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import TheHeader from './components/TheHeader';
-import TheBody from './components/TheBody';
+import { mapGetters } from 'vuex';
 
+import Navbar from './components/Navbar';
 
-
-import axios from 'axios';
 export default {
-  el: "#app",
+  name: 'app',
   components: {
-    'the-header': TheHeader,
-    'the-body': TheBody
+    Navbar,
   },
-  data () {
-    return {
-    }
-  }
-}
+  computed: mapGetters('auth', [
+    'isAuthenticated',
+  ]),
+};
 </script>
 
 <style>
 #app {
-  height: 3000px;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
 }
 </style>

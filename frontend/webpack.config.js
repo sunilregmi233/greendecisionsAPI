@@ -2,10 +2,12 @@ var path = require('path')
 var webpack = require('webpack')
 var BundleTracker = require('webpack-bundle-tracker')
 var WriteFilePlugin = require('write-file-webpack-plugin')
+require("babel-polyfill");
+
 
 module.exports = {
   context: __dirname,
-  entry: './src/main.js',
+  entry: ['babel-polyfill', './src/main.js'],
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: 'http://localhost:8080/dist/',

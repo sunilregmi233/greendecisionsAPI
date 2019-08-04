@@ -3,6 +3,8 @@ import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import router from './routes';
+import store from './store';
 
 Vue.use(BootstrapVue);
 Vue.directive('scroll', {
@@ -15,8 +17,13 @@ Vue.directive('scroll', {
     window.addEventListener('scroll', f)
   }
 })
+Vue.config.productionTip = false;
 
-new Vue({
+export default new Vue({
+  router,
+  store,
   el: '#app',
-  render: h => h(App)
-})
+  template: '<App/>',
+  components: { App },
+});
+
