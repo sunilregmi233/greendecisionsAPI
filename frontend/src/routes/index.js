@@ -30,7 +30,7 @@ const requireUnauthenticated = (to, from, next) => {
       if (store.getters['auth/isAuthenticated']) {
         next('/home');
       } else {
-        next();
+        next('/');
       }
     });
 };

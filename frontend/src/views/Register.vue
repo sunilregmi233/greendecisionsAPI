@@ -12,9 +12,9 @@
           placeholder="confirm password">
         <input v-model="inputs.email" type="email" id="email" placeholder="email">
       </form>
-      <button @click="createAccount(inputs)">
+      <BaseButton @click="createAccount(inputs)">
         create account
-      </button>
+      </BaseButton>
       <span class="error" v-show="registrationError">
         An error occured while processing your request.
       </span>
@@ -38,7 +38,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-
+import BaseButton from '../components/_base-button';
 export default {
   data() {
     return {
@@ -48,7 +48,10 @@ export default {
         password2: '',
         email: '',
       },
-    };
+    }
+  },
+  components: {
+    BaseButton,
   },
   computed: mapState('signup', [
     'registrationCompleted',

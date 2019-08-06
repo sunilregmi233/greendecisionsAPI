@@ -5,9 +5,9 @@
       <input v-model="inputs.username" type="text" id="username" placeholder="username">
       <input v-model="inputs.password" type="password" id="password" placeholder="password">
     </form>
-    <button @click="login(inputs)" id="login-button">
+    <BaseButton btype="submit" @click="login(inputs)" id="login-button">
       login
-    </button>
+    </BaseButton>
     <div>
       <router-link to="/register">create account</router-link> |
       <router-link to="/password_reset">reset password</router-link>
@@ -17,6 +17,7 @@
 
 
 <script>
+import BaseButton from '../components/_base-button';
 export default {
   data() {
     return {
@@ -25,6 +26,9 @@ export default {
         password: '',
       },
     };
+  },
+  components: {
+    BaseButton
   },
   methods: {
     login({ username, password }) {
